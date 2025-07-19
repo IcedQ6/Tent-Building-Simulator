@@ -1,5 +1,76 @@
-[gd_scene format=3 uid="uid://btrppdkph20oc"]
+[gd_scene load_steps=8 format=3 uid="uid://btrppdkph20oc"]
+
+[ext_resource type="Script" uid="uid://xgetn1w2js26" path="res://Scripts/gameplay_screen_controller.gd" id="1_bo1nx"]
+[ext_resource type="Texture2D" uid="uid://c8iwitho6fkyd" path="res://Art/PLACEHOLDER_Arrow.png" id="2_8gbba"]
+[ext_resource type="Texture2D" uid="uid://cwqf5ii6qnal1" path="res://Background/Item Side.jpg" id="3_jjvhh"]
+[ext_resource type="Texture2D" uid="uid://5rv5tw2kjtdr" path="res://Art/PLACEHOLDER_Item.png" id="3_kry3j"]
+[ext_resource type="Texture2D" uid="uid://b4guffo4ushuh" path="res://Background/Tent Side.jpg" id="4_kry3j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjvhh"]
+size = Vector2(80, 48)
 
 [node name="main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Gameplay Scene Controller" type="Node2D" parent="."]
+script = ExtResource("1_bo1nx")
+
+[node name="ItemSide" type="Node2D" parent="Gameplay Scene Controller"]
+
+[node name="Background" type="Sprite2D" parent="Gameplay Scene Controller/ItemSide"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_jjvhh")
+
+[node name="GenericItem" type="Area2D" parent="Gameplay Scene Controller/ItemSide"]
+position = Vector2(120, -272)
+scale = Vector2(1.695, 1.695)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gameplay Scene Controller/ItemSide/GenericItem"]
+shape = SubResource("RectangleShape2D_21xkr")
+
+[node name="Sprite2D" type="Sprite2D" parent="Gameplay Scene Controller/ItemSide/GenericItem"]
+texture = ExtResource("3_kry3j")
+
+[node name="LeftArrow" type="Area2D" parent="Gameplay Scene Controller/ItemSide"]
+position = Vector2(-512, 0)
+
+[node name="Sprite" type="Sprite2D" parent="Gameplay Scene Controller/ItemSide/LeftArrow"]
+texture = ExtResource("2_8gbba")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gameplay Scene Controller/ItemSide/LeftArrow"]
+shape = SubResource("RectangleShape2D_jjvhh")
+
+[node name="TentSide" type="Node2D" parent="Gameplay Scene Controller"]
+visible = false
+
+[node name="Background" type="Sprite2D" parent="Gameplay Scene Controller/TentSide"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_kry3j")
+
+[node name="RightArrow" type="Area2D" parent="Gameplay Scene Controller/TentSide"]
+position = Vector2(504, 0)
+
+[node name="Sprite" type="Sprite2D" parent="Gameplay Scene Controller/TentSide/RightArrow"]
+texture = ExtResource("2_8gbba")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gameplay Scene Controller/TentSide/RightArrow"]
+shape = SubResource("RectangleShape2D_jjvhh")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="InventoryContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 131.02
+offset_bottom = 40.0
+
+[connection signal="input_event" from="Gameplay Scene Controller/ItemSide/LeftArrow" to="Gameplay Scene Controller" method="_on_arrow_input_event"]
+[connection signal="input_event" from="Gameplay Scene Controller/TentSide/RightArrow" to="Gameplay Scene Controller" method="_on_arrow_input_event"]
