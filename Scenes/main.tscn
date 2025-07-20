@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://btrppdkph20oc"]
+[gd_scene load_steps=13 format=3 uid="uid://btrppdkph20oc"]
 
 [ext_resource type="Script" uid="uid://bgl88xc3c3wcr" path="res://Scenes/game_manager.gd" id="1_21xkr"]
 [ext_resource type="Script" uid="uid://xgetn1w2js26" path="res://Scripts/gameplay_screen_controller.gd" id="1_bo1nx"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://cwqf5ii6qnal1" path="res://Background/Item Side.jpg" id="3_jjvhh"]
 [ext_resource type="Texture2D" uid="uid://5rv5tw2kjtdr" path="res://Art/PLACEHOLDER_Item.png" id="3_kry3j"]
 [ext_resource type="Texture2D" uid="uid://b4guffo4ushuh" path="res://Background/Tent Side.jpg" id="4_kry3j"]
+[ext_resource type="Script" uid="uid://ci7gcmf88jvbg" path="res://Scripts/interact_zone.gd" id="6_344ge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6bp64"]
+size = Vector2(368, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjvhh"]
 size = Vector2(80, 48)
@@ -23,6 +27,13 @@ script = ExtResource("1_21xkr")
 
 [node name="Gameplay Scene Controller" type="Node2D" parent="."]
 script = ExtResource("1_bo1nx")
+
+[node name="ItemBarDetector" type="Area2D" parent="Gameplay Scene Controller"]
+script = ExtResource("6_344ge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gameplay Scene Controller/ItemBarDetector"]
+position = Vector2(-376, 248)
+shape = SubResource("RectangleShape2D_6bp64")
 
 [node name="ItemSide" type="Node2D" parent="Gameplay Scene Controller"]
 
@@ -44,11 +55,6 @@ texture = ExtResource("2_8gbba")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gameplay Scene Controller/ItemSide/LeftArrow"]
 shape = SubResource("RectangleShape2D_jjvhh")
-
-[node name="ItemBarDetector" type="Area2D" parent="Gameplay Scene Controller/ItemSide"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Gameplay Scene Controller/ItemSide/ItemBarDetector"]
-polygon = PackedVector2Array(-544, 192, -224, 192, -224, 312, -544, 312)
 
 [node name="TentSide" type="Node2D" parent="Gameplay Scene Controller"]
 visible = false
@@ -120,8 +126,9 @@ layout_mode = 2
 texture = SubResource("GradientTexture1D_6bp64")
 expand_mode = 1
 
+[connection signal="area_entered" from="Gameplay Scene Controller/ItemBarDetector" to="Gameplay Scene Controller/ItemSide/GenericItem" method="_on_item_bar_detector_area_entered"]
+[connection signal="area_exited" from="Gameplay Scene Controller/ItemBarDetector" to="Gameplay Scene Controller/ItemSide/GenericItem" method="_on_item_bar_detector_area_exited"]
 [connection signal="mouse_entered" from="Gameplay Scene Controller/ItemSide/GenericItem" to="Gameplay Scene Controller/ItemSide/GenericItem" method="_on_mouse_entered"]
-[connection signal="area_entered" from="Gameplay Scene Controller/ItemSide/GenericItem2" to="Gameplay Scene Controller/ItemSide/GenericItem2" method="_on_area_entered"]
 [connection signal="mouse_entered" from="Gameplay Scene Controller/ItemSide/GenericItem2" to="Gameplay Scene Controller/ItemSide/GenericItem2" method="_on_mouse_entered"]
 [connection signal="input_event" from="Gameplay Scene Controller/ItemSide/LeftArrow" to="Gameplay Scene Controller" method="_on_arrow_input_event"]
 [connection signal="input_event" from="Gameplay Scene Controller/TentSide/RightArrow" to="Gameplay Scene Controller" method="_on_arrow_input_event"]
