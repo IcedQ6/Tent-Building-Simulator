@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdyo65xu32kue"]
+
+[ext_resource type="Script" uid="uid://cmjdi6vx4ooq1" path="res://Scripts/item.gd" id="1_056gv"]
+[ext_resource type="Texture2D" uid="uid://5rv5tw2kjtdr" path="res://Art/PLACEHOLDER_Item.png" id="2_onyea"]
+
+[node name="GenericItem" type="Area2D"]
+scale = Vector2(1.695, 1.695)
+script = ExtResource("1_056gv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_onyea")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(33.0383, -33.0383, 33.0383, 33.0383, -33.0383, 33.0383, -33.0383, -33.0383)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
