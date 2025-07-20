@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dr2lx5x2lrj17"]
+
+[ext_resource type="Script" uid="uid://cv7fl5k08ovof" path="res://scripts/ball.gd" id="1_tinl0"]
+[ext_resource type="Texture2D" uid="uid://k046tm2cq6oh" path="res://assets/tentpole.png" id="2_cxlvu"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rts4s"]
+bounce = 0.42
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f7cbr"]
+size = Vector2(20, 205)
+
+[node name="pole" type="RigidBody2D" groups=["pickable"]]
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_rts4s")
+freeze_mode = 1
+continuous_cd = 1
+script = ExtResource("1_tinl0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.26, 0.44)
+texture = ExtResource("2_cxlvu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_f7cbr")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

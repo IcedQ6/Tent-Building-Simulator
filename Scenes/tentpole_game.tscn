@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=3 uid="uid://bx6vosqmp16sk"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_tk3qs"]
+[ext_resource type="PackedScene" path="res://scenes/pole.tscn" id="2_ydgd1"]
+[ext_resource type="PackedScene" path="res://scenes/timer.tscn" id="3_ydgd1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(1150, 82)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h2yge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
+size = Vector2(281.818, 559)
+
+[node name="tentpole_game" type="Node2D"]
+script = ExtResource("1_tk3qs")
+
+[node name="pole1" parent="." instance=ExtResource("2_ydgd1")]
+position = Vector2(212, 543)
+rotation = -1.57079
+
+[node name="pole2" parent="." instance=ExtResource("2_ydgd1")]
+position = Vector2(212, 516)
+rotation = -4.71238
+
+[node name="pole3" parent="." instance=ExtResource("2_ydgd1")]
+position = Vector2(212, 489)
+rotation = -1.57079
+
+[node name="floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+position = Vector2(575, 602)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="floor"]
+position = Vector2(576.5, 605.625)
+scale = Vector2(1151, 91.25)
+mesh = SubResource("BoxMesh_h2yge")
+
+[node name="floor2" type="StaticBody2D" parent="."]
+position = Vector2(-2, -577)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor2"]
+position = Vector2(575, 602)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="floor2"]
+position = Vector2(576.5, 605.625)
+scale = Vector2(1151, 91.25)
+mesh = SubResource("BoxMesh_h2yge")
+
+[node name="wall_left" type="StaticBody2D" parent="."]
+position = Vector2(0, -558)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall_left"]
+position = Vector2(31, 837.5)
+scale = Vector2(0.22, 1)
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="wall_left"]
+position = Vector2(26, 840)
+scale = Vector2(75, 600)
+mesh = SubResource("BoxMesh_h2yge")
+
+[node name="wall_right" type="StaticBody2D" parent="."]
+position = Vector2(1087, -578)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall_right"]
+position = Vector2(31, 837.5)
+scale = Vector2(0.22, 1)
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="wall_right"]
+position = Vector2(26, 840)
+scale = Vector2(75, 600)
+mesh = SubResource("BoxMesh_h2yge")
+
+[node name="Timer" parent="." instance=ExtResource("3_ydgd1")]

@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://5i8wgei8yy27"]
+
+[ext_resource type="Texture2D" uid="uid://bpqni77r2ccba" path="res://assets/knot_pieces/piece1.png" id="1_3lncw"]
+[ext_resource type="Script" uid="uid://boagvs2ey4dsh" path="res://scripts/knot.gd" id="1_brkum"]
+[ext_resource type="Texture2D" uid="uid://bsjc65qgm5dcd" path="res://assets/knot_pieces/piece2.png" id="2_6vvvs"]
+[ext_resource type="Texture2D" uid="uid://dkv4loa4vurj4" path="res://assets/knot_pieces/piece3.png" id="3_brkum"]
+[ext_resource type="Texture2D" uid="uid://dm7wlr2w8gs5u" path="res://assets/knot_pieces/piece4.png" id="4_3arc2"]
+[ext_resource type="Texture2D" uid="uid://d4m4bnpcwqsac" path="res://assets/knot_pieces/redcircle.png" id="5_6vvvs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3lncw"]
+radius = 122.711
+
+[node name="knot" type="Node2D"]
+script = ExtResource("1_brkum")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(577, 223)
+
+[node name="piece1" type="Sprite2D" parent="Area2D"]
+visible = false
+texture = ExtResource("1_3lncw")
+
+[node name="piece2" type="Sprite2D" parent="Area2D"]
+visible = false
+position = Vector2(57, 0)
+texture = ExtResource("2_6vvvs")
+
+[node name="piece3" type="Sprite2D" parent="Area2D"]
+visible = false
+position = Vector2(7, 35)
+texture = ExtResource("3_brkum")
+
+[node name="piece4" type="Sprite2D" parent="Area2D"]
+visible = false
+position = Vector2(54, 44)
+texture = ExtResource("4_3arc2")
+
+[node name="interact_circle" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(18, 4)
+shape = SubResource("CircleShape2D_3lncw")
+
+[node name="red circle" type="Sprite2D" parent="."]
+position = Vector2(595, 227)
+scale = Vector2(0.83937, 0.826978)
+texture = ExtResource("5_6vvvs")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
